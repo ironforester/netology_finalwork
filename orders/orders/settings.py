@@ -171,6 +171,7 @@ REST_FRAMEWORK = {
         'anon': '100/day',
         'user': '100/day',
         'register': '50/day',
+        'partner': '100/day'
 
     }
 }

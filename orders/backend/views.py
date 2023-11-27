@@ -1,4 +1,4 @@
-from django.shortcuts import render
+
 from distutils.util import strtobool
 
 
@@ -28,7 +28,7 @@ from backend.signals import new_user_registered, new_order
 class PartnerUpdate(APIView):
     """Класс для обновления прайса от поставщика"""
 
-    throttle_scope = 'user'
+    throttle_scope = 'partner'
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -166,7 +166,6 @@ class RegisterAccount(APIView):
                     user.set_password(request.data['password'])
                     user.save()
                     new_user_registered.send(sender=self.__class__, user_id=user.id)
-                    new_user_registered.delay(user_id=user.id)
 
                     return Response({'Status': True}, status=status.HTTP_201_CREATED)
                 else:
